@@ -16,7 +16,7 @@ from config import (global_config, scan_config)
 from functools import reduce
 import shutil
 from api_coll import ApiColl
-from common import (FileUtil, ZipUtil, new_logger, PException)
+from common import (ZipUtil, new_logger, PException)
 from common.util import (
     sub_dirs,
     now_ts_s,

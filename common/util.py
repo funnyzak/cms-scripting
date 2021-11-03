@@ -378,6 +378,34 @@ def print_data_one(db_one, key_names=None):
             keys)))
 
 
+def search_depth_sub_dirs(root,  depth=None, dir_list=None):
+    """
+    根据深度搜索目标文件夹
+    :param root: 开始的根目录
+    :param depth: 搜索深度，只获取最高深度的路径 如: depth=2 文件夹：a>b>c 那获取的路径为： /a/b/c ,不包含 /a/b
+    :param dir_list: 获取的文件夹列表
+    :return:返回文件对象集合
+    """
+    if dir_list is None:
+        dir_list = []
+    if depth is None:
+        depth = 1
+
+    if not os.path.exists(root):
+        return dir_list
+
+    items = os.listdir(root)
+    for item in items:
+        path = os.path.join(root, item)
+        if not os.path.isdir(path):
+            continue
+        if depth > 1:
+            search_depth_sub_dirs(path, depth - 1, dir_list)
+        elif depth == 1:
+            dir_list.append(path)
+    return dir_list
+    
+
 if __name__ == '__main__':
     print("hello world")
     # print(is_match("0005_NKⅢ：710_00", "^(?P<num>\d+)[\_\-](?P<name>.+)$"))

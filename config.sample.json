@@ -1,0 +1,528 @@
+{
+  "scan_config": {
+    "THREE_MODEL": {
+      "name": "模型",
+      "dir_name_list": [
+        "成果模型"
+      ],
+      "ext_list": null
+    },
+    "IMAGE": {
+      "name": "图片类型",
+      "dir_name_list": [
+        "成果照片"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
+    },
+    "ARCHAEOLOGY": {
+      "name": "考古线",
+      "dir_name_list": [
+        "考古线"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
+    },
+    "PEST_ANALYSE": {
+      "name": "病虫害",
+      "dir_name_list": [
+        "病虫害"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
+    },
+    "ORIGIN_CERT": {
+      "name": "原始凭证",
+      "dir_name_list": [
+        "原始凭证"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
+    },
+    "POSITIVE_PHOTOGRAPHY": {
+      "name": "正摄影像",
+      "dir_name_list": [
+        "正摄影像"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
+    },
+    "SIDE_SIX_IMAGE": {
+      "name": "六视图",
+      "dir_name_list": [
+        "六视图"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
+    },
+    "SOURCE": {
+      "name": "源数据",
+      "dir_name_list": [
+        "采集三维",
+        "采集照片"
+      ],
+      "ext_list": [
+        "obj",
+        "ai",
+        "dwg",
+        "cr2",
+        "tiff",
+        "tif",
+        "psd",
+        "stl",
+        "ace",
+        "wrp"
+      ]
+    },
+    "DOCUMENT": {
+      "name": "文档",
+      "dir_name_list": [
+        "文档"
+      ],
+      "ext_list": [
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "pdf",
+        "txt",
+        "pdf"
+      ]
+    },
+    "ATTACHMENT": {
+      "name": "附件",
+      "dir_name_list": [
+        "附件"
+      ],
+      "ext_list": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png",
+        "ai",
+        "dwg",
+        "cr2",
+        "tiff",
+        "tif",
+        "psd",
+        "stl",
+        "ace",
+        "wrp",
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "pdf",
+        "txt",
+        "pdf",
+        "mp4",
+        "mp3",
+        "zip"
+      ]
+    }
+  },
+  "folder_check_config": [
+    {
+      "dir_name": "成果模型/low",
+      "ext_list": [
+        "obj"
+      ]
+    },
+    {
+      "dir_name": "成果模型/mid",
+      "ext_list": [
+        "obj"
+      ]
+    },
+    {
+      "dir_name": "成果模型/high",
+      "ext_list": [
+        "obj"
+      ]
+    },
+    {
+      "dir_name": "成果照片",
+      "ext_list": [
+        "jpg",
+        "jpeg"
+      ]
+    },
+    {
+      "dir_name": "采集照片",
+      "ext_list": [
+        "cr2"
+      ]
+    },
+    {
+      "dir_name": "采集三维",
+      "ext_list": [
+        "obj",
+        "wrp"
+      ]
+    }
+  ],
+  "coll_api_paths": {
+    "user": {
+      "login": "/console/user/login"
+    },
+    "upload": {
+      "img": "/console/upload/image/local"
+    },
+    "collection": {
+      "coll_table_upload": "/console/collection/login/import?mid={0}",
+      "coll_storage_table_upload": "/console/collection/login/storage/import?mid={0}",
+      "###coll_table_upload": "藏品信息表格批量导入",
+      "###coll_storage_table_upload": "藏品柜架导入"
+    },
+    "storage": {
+      "storage_simple_list": "/console/storage/simple/list?mid={0}"
+    },
+    "resource": {
+      "upload": "/console/resource/upload/{0}?cate={1}"
+    }
+  },
+  "get_res_num_rules": [
+    {
+      "expression": "^A-(?P<num>[\\da-zA-Z]+)[_-].*$",
+      "field": "regNum",
+      "order": 1,
+      "enable": true,
+      "description": "说明"
+    },
+    {
+      "expression": "^H-(?P<num>[\\da-zA-Z]+)[_-].*$",
+      "field": "cateNum",
+      "order": 1,
+      "enable": true,
+      "description": "说明"
+    },
+    {
+      "expression": "^I-(?P<num>[\\da-zA-Z]+)[_-].*$",
+      "field": "oldNum",
+      "order": 1,
+      "enable": true,
+      "description": "说明"
+    },
+    {
+      "expression": "^J-(?P<num>[\\da-zA-Z]+)[_-].*$",
+      "field": "comeNum",
+      "order": 1,
+      "enable": true,
+      "description": "说明"
+    },
+    {
+      "expression": "^K-(?P<num>[\\da-zA-Z]+)[_-].*$",
+      "field": "collectionNum",
+      "order": 1,
+      "enable": true,
+      "description": "说明"
+    },
+    {
+      "expression": "^(?P<num>[\\da-zA-Z]+)[\\_\\-](?P<name>.+)$",
+      "field": "oldNum",
+      "order": 7,
+      "enable": true,
+      "description": "说明"
+    }
+  ],
+  "resource_cate_ext_list": [
+    {
+      "name": "压缩文件",
+      "extList": [
+        "zip"
+      ],
+      "cate": "ZIP"
+    },
+    {
+      "name": "结构分析",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png",
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "pdf",
+        "txt",
+        "pdf"
+      ],
+      "cate": "STRUCTURE_ANALYSIS"
+    },
+    {
+      "name": "附件",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png",
+        "ai",
+        "dwg",
+        "cr2",
+        "tiff",
+        "tif",
+        "psd",
+        "stl",
+        "ace",
+        "wrp",
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "pdf",
+        "txt",
+        "pdf",
+        "mp4",
+        "mp3",
+        "zip"
+      ],
+      "cate": "ATTACHMENT"
+    },
+    {
+      "name": "视频",
+      "extList": [
+        "mp4"
+      ],
+      "cate": "VIDEO"
+    },
+    {
+      "name": "成份分析",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png",
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "pdf",
+        "txt",
+        "pdf"
+      ],
+      "cate": "INGREDIENT_ANALYSIS"
+    },
+    {
+      "name": "病虫害",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
+      "cate": "PEST_ANALYSE"
+    },
+    {
+      "name": "考古线图",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
+      "cate": "ARCHAEOLOGY"
+    },
+    {
+      "name": "MP3",
+      "extList": [
+        "mp3"
+      ],
+      "cate": "MP3"
+    },
+    {
+      "name": "图片",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
+      "cate": "IMAGE"
+    },
+    {
+      "name": "模型",
+      "extList": [
+        "zip"
+      ],
+      "cate": "THREE_MODEL"
+    },
+    {
+      "name": "原始凭证",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
+      "cate": "ORIGIN_CERT"
+    },
+    {
+      "name": "源数据",
+      "extList": [
+        "ai",
+        "dwg",
+        "cr2",
+        "tiff",
+        "tif",
+        "psd",
+        "stl",
+        "ace",
+        "wrp"
+      ],
+      "cate": "SOURCE"
+    },
+    {
+      "name": "文档",
+      "extList": [
+        "doc",
+        "docx",
+        "xls",
+        "xlsx",
+        "ppt",
+        "pptx",
+        "pdf",
+        "txt",
+        "pdf"
+      ],
+      "cate": "DOCUMENT"
+    },
+    {
+      "name": "六视图",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
+      "cate": "SIDE_SIX_IMAGE"
+    },
+    {
+      "name": "正摄影像",
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
+      "cate": "POSITIVE_PHOTOGRAPHY"
+    }
+  ],
+  "execl_convert": {
+    "import_collection": {
+      "source_table_map": {
+        "编号类型": 1,
+        "编号": 2,
+        "###编号类型必须设置包含": -1,
+        "###编号必须设置包含": -1,
+        "入馆凭证号": -1,
+        "原号": -1,
+        "账册": -1,
+        "分类号": 3,
+        "藏品名称": 4,
+        "曾用名": 5,
+        "类别": 11,
+        "年代": 6,
+        "具体年代": 10,
+        "材质": 14,
+        "级别": 23,
+        "完残程度": 25,
+        "实际数量": 15,
+        "尺寸单位": -1,
+        "通长": 16,
+        "通宽": 17,
+        "通高": 18,
+        "具体尺寸": 19,
+        "质量范围": 20,
+        "质量单位": 22,
+        "质量": 21,
+        "来源方式": 24,
+        "具体来源": -1,
+        "完残情况": 26,
+        "保护等级": 27,
+        "入藏时间范围": 28,
+        "入藏日期": 29,
+        "出土地": -1,
+        "著者": 30,
+        "版本": 31,
+        "存卷": 32,
+        "备注": -1,
+        "库房名称": -1,
+        "具体位置": -1,
+        "详细位置": -1,
+        "###导入表格的标题,对应一普表格的索引列": -1
+      }
+    },
+    "import_storage": {
+      "source_table_map": {
+        "总登记号": 2,
+        "库房名称": 32,
+        "具体位置": 33,
+        "详细位置": 34
+      },
+      "replace_storage_name_rules": [
+        "10号古籍碑帖库$$10号古籍碑帖库房",
+        "汉魏碑刻馆$$汉魏碑刻陈列馆",
+        "汉魏碑刻陈列馆 $$汉魏碑刻陈列馆",
+        "3号服装库$$3号服饰库房",
+        "5号服装库$$5号服饰库房",
+        "4号服装库$$4号服饰库房",
+        "2号服装库$$2号服饰库房",
+        "7号服装库$$7号服饰库房",
+        "6号服装库$$6号服饰库房",
+        "19号钱币库$$19号古钱币库房",
+        "24号铜器库$$24号铜器库房",
+        "20号珐琅库$$20号珐琅库房",
+        "12号瓷器库$$12号瓷器库房",
+        "17号陶器库$$17号陶器库房",
+        "17号瓷器库$$17号陶器库房",
+        "25号青铜器库$$25号青铜器库房",
+        "24号青铜器库$$24号青铜器库房",
+        "24号铜器库房$$24号青铜器库房",
+        "21号玉器库$$21号玉器库房",
+        "1号木雕版库$$1号木雕版库房",
+        "23号家具库$$23号家具库房",
+        "23号家具库房、孔府$$23号家具库房",
+        "15号字画库$$15号字画库房",
+        "8号档案报纸库$$8号档案库房",
+        "孔府前上房东一间$$孔府前上房",
+        "孔府后堂楼中间$$孔府后堂楼"
+      ],
+      "###replace_storage_name_rules": "表格的库房名称替换为数据库库房名称规则"
+    }
+  }
+}

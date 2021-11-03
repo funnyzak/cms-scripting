@@ -29,7 +29,8 @@ from common.util import (
     file_info,
     second_2_td,
     match_group,
-    distinctList
+    distinctList,
+    search_depth_sub_dirs
 )
 from common.imgutil import (
     img_exif,
@@ -60,6 +61,11 @@ class ScanResource:
         self._scan_type_list = global_config.get_raw(
             'scan_res', 'go_scan_type_list').split(' ')
         self._root_path = global_config.get_raw('scan_res', 'root_path')
+        self._depth = global_config.config['scan_res'].getint('depth')
+        # 根据根目录和深度获取所有有资源数据的父级文件夹
+        self._root_dirs = [self._root_path] if self._depth <= 1 else search_depth_sub_dirs(
+            self._root_path, self._depth)
+
         self._set_collection_cover_res_idx = global_config.config['scan_res'].getint(
             'set_collection_cover_res_idx')
         self._set_collection_cover_res_format = global_config.get_raw(
@@ -90,15 +96,32 @@ class ScanResource:
                                                                            'check_rule_check_3d_dir_name_pattern')
         self._message = global_config.config['messenger'].getboolean('enable')
         self._jsd_key = global_config.get_raw('messenger', 'jsdkey')
-        _sub_dir_list_rlt = self.get_subdir_from_root(self._root_path)
+
+        _sub_dir_list_rlt = self.get_data_item_dirs()
         self.sub_dir_list = [] if _sub_dir_list_rlt is None else _sub_dir_list_rlt['list']
-        self.sub_dir_list_no_match = [
-        ] if _sub_dir_list_rlt is None else _sub_dir_list_rlt['no_match']
+        self.sub_dir_list_no_match = [] if _sub_dir_list_rlt is None else _sub_dir_list_rlt['no_match']
+
         if self._resource_storage_way == 'db' and self._copy_target_path != '' and not os.path.exists(
                 self._copy_target_path):
             logger.info("创建资源目标文件夹：%s\n", self._copy_target_path)
             os.makedirs(self._copy_target_path)
         pass
+
+    def get_data_item_dirs(self):
+        """
+        获取所有待处理的资源文件夹
+        """
+       # 遍历父文件夹获取所有的资源文件夹
+        _sub_dir_list_rlt = dict(list=[],no_match=[])
+        for _dir in self._root_dirs:
+            _data_dirs = self.get_subdir_from_root(_dir)
+            if _data_dirs is None:
+              continue
+
+            _sub_dir_list_rlt['list'].extend(_data_dirs['list'])
+            _sub_dir_list_rlt['no_match'].extend(_data_dirs['no_match'])
+
+        return _sub_dir_list_rlt
 
     @classmethod
     def scan_config_desc(cls, scan_config):

@@ -118,3 +118,6 @@ dmypy.json
 /config.ini
 /config.json
 !.keep
+
+
+test.py

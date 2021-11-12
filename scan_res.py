@@ -99,7 +99,8 @@ class ScanResource:
 
         _sub_dir_list_rlt = self.get_data_item_dirs()
         self.sub_dir_list = [] if _sub_dir_list_rlt is None else _sub_dir_list_rlt['list']
-        self.sub_dir_list_no_match = [] if _sub_dir_list_rlt is None else _sub_dir_list_rlt['no_match']
+        self.sub_dir_list_no_match = [
+        ] if _sub_dir_list_rlt is None else _sub_dir_list_rlt['no_match']
 
         if self._resource_storage_way == 'db' and self._copy_target_path != '' and not os.path.exists(
                 self._copy_target_path):
@@ -112,11 +113,11 @@ class ScanResource:
         获取所有待处理的资源文件夹
         """
        # 遍历父文件夹获取所有的资源文件夹
-        _sub_dir_list_rlt = dict(list=[],no_match=[])
+        _sub_dir_list_rlt = dict(list=[], no_match=[])
         for _dir in self._root_dirs:
             _data_dirs = self.get_subdir_from_root(_dir)
             if _data_dirs is None:
-              continue
+                continue
 
             _sub_dir_list_rlt['list'].extend(_data_dirs['list'])
             _sub_dir_list_rlt['no_match'].extend(_data_dirs['no_match'])
@@ -205,13 +206,15 @@ class ScanResource:
 
         logger.info("配置信息：%s", self.config_desc())
 
-        logger.info("文件夹过滤后，找到符合 %s 名称规则的文件夹有 %s 个，分别是：\n%s。 \n\n不符合的文件夹有 %s 个，分别是：\n%s。\n\n",
+        logger.info("文件夹过滤后，找到符合 %s 名称规则的文件夹有 %s 个，分别是：\n%s。 \n\n共%s个。 n\n不符合的文件夹有 %s 个，分别是：\n%s。\n\n共%s个",
                     self._match_dir_pattern, len(self.sub_dir_list),
                     '\n'.join(list(map(lambda v: '文件夹：{} 编号：{} 名称：{}'.format(v['dir_name'],
                                                                              v['num'], v['name']), self.sub_dir_list))),
+                    len(self.sub_dir_list),
                     len(self.sub_dir_list_no_match),
                     '无' if len(self.sub_dir_list_no_match) == 0 else '\n'.join(
-                        list(map(lambda v: v['dir_name'], self.sub_dir_list_no_match)))
+                        list(map(lambda v: v['dir_name'], self.sub_dir_list_no_match))),
+                    len(self.sub_dir_list_no_match)
                     )
         pass
 

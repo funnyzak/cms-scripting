@@ -11,16 +11,16 @@
 ## 第三方库
 
 - 需要使用到的库已经放在requirements.txt，使用pip安装的可以使用指令
-  `pip install -r requirements.txt`
+  `pip3 install -r requirements.txt`
 - 如果国内安装第三方库比较慢，可以使用以下指令进行源加速
-  `pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt`
+  `pip3 install -i https://pypi.doubanio.com/simple/ -r requirements.txt`
 
 
 ## 配置当前目录执行环境
 
 安装virtualenv
 ```bash
-pip install -i https://pypi.doubanio.com/simple/ virtualenv
+pip3 install -i https://pypi.doubanio.com/simple/ virtualenv
 ```
 
 在程序目录执行

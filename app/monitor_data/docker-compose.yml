@@ -1,0 +1,11 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: monitor_data
+    restart: always
+    command: ["python3", "main.py", "config.json"]
+    volumes:
+      - .:/app

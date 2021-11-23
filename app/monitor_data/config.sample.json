@@ -1,0 +1,46 @@
+{
+  "postUrl": {
+    "brt": "http://domain/notify?way-ms",
+    "cthm": "http://domain/notify?way-ms"
+  },
+  "list": [
+    {
+      "id": "brt devices",
+      "type": "brt",
+      "interval": 30,
+      "timeSeed": 25,
+      "deviceList": [
+        {
+          "type": "TH",
+          "mac": "F94288A779D5",
+          "temp": 250,
+          "humi": 500,
+          "pwr": 99
+        },
+        {
+          "type": "VOC",
+          "mac": "C4646EFB4C6A",
+          "temp": 250,
+          "humi": 500,
+          "lux": 300,
+          "eco2": 320,
+          "tvoc": 150,
+          "pwr": 99
+        }
+      ]
+    },
+    {
+      "id": "cthm device",
+      "type": "cthm",
+      "interval": 30,
+      "timeSeed": 25,
+      "device": {
+        "type": "CTHM",
+        "mac": "F94288A779D5",
+        "ip": "192.168.0.11",
+        "temp": 2500,
+        "humi": 5000
+      }
+    }
+  ]
+}

@@ -122,3 +122,12 @@ config.json
 
 test.py
 test/
+
+test.json
+test*.json
+test_*.json
+config_*.json
+# npm
+node_modules
+yarn.lock
+package-lock.json

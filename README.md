@@ -134,6 +134,13 @@ python3 scan_one_folder_res.py
 
 ### scan_folder_and_copy_to
 
+
+## 其他应用
+
+- [Monitor Data](./app/monitor_data/README.md)
+- [Dir File Copy](./app/dir_file_copy/README.md)
+
+
 扫描根目录所有文件夹并复制指定格式文件到输出目录。
 
 > 使用时需配置 config.ini=>scan_folder_res_copy_to 节点。

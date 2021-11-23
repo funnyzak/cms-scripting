@@ -10,7 +10,7 @@
 
 ## 第三方库
 
-- 需要使用到的库已经放在requirements.txt，使用pip安装的可以使用指令  
+- 需要使用到的库已经放在requirements.txt，使用pip安装的可以使用指令
   `pip install -r requirements.txt`
 - 如果国内安装第三方库比较慢，可以使用以下指令进行源加速
   `pip install -i https://pypi.doubanio.com/simple/ -r requirements.txt`
@@ -76,7 +76,7 @@ python scan_res.py
 
 
 ```bash
-python folder_check.py 
+python folder_check.py
 ```
 
 ### folder_create.py
@@ -146,5 +146,5 @@ python3 scan_folder_and_copy_to.py
 ### 生成requirements.txt
 
 ```bash
-pip freeze >requirements.txt
+pip3 freeze >requirements.txt
 ```

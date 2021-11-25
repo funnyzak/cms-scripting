@@ -127,17 +127,18 @@ def wait_some_time():
 
 def send_wechat(jsd_key, title, message):
     """推送信息到微信"""
-    url = 'http://push.ijingniu.cn/send'
-    payload = {
-        "key": jsd_key,
-        "head": title,
-        "body": message
-    }
-    urllib.parse.urlencode(payload)
-    headers = {
-        'User-Agent': get_random_useragent()
-    }
-    requests.request(url=url, method='POST', data=payload, headers=headers)
+    for _key in jsd_key.split():
+        url = 'http://push.ijingniu.cn/send'
+        payload = {
+            "key": _key,
+            "head": title,
+            "body": message
+        }
+        urllib.parse.urlencode(payload)
+        headers = {
+            'User-Agent': get_random_useragent()
+        }
+        requests.request(url=url, method='POST', data=payload, headers=headers)
 
 
 def response_status(resp):
@@ -236,7 +237,8 @@ def file_info(file_path):
     dir_path = os.path.split(file_path)[0]
     ext = os.path.splitext(file_path)[1].lower()[1:]
     return dict(
-        name=origin_name[0: len(origin_name) - len(ext) - 1], origin_name=origin_name,
+        name=origin_name[0: len(origin_name) - len(ext) -
+                         1], origin_name=origin_name,
         size=os.path.getsize(file_path), ext=ext, mime=file_mime(file_path),
         create_time=file_create_ts(file_path), dir_path=dir_path,
         dir_name=os.path.split(dir_path)[1], full_path=file_path
@@ -363,7 +365,8 @@ def print_data_list(db_list, key_names=None):
         return
 
     for idx, item in enumerate(db_list):
-        print('序号.{} ==>'.format(str(idx + 1)), print_data_one(item, key_names))
+        print('序号.{} ==>'.format(str(idx + 1)),
+              print_data_one(item, key_names))
 
 
 def print_data_one(db_one, key_names=None):
@@ -404,7 +407,7 @@ def search_depth_sub_dirs(root,  depth=None, dir_list=None):
         elif depth == 1:
             dir_list.append(path)
     return dir_list
-    
+
 
 if __name__ == '__main__':
     print("hello world")

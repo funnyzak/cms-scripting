@@ -62,9 +62,16 @@ class ScanResource:
             'scan_res', 'go_scan_type_list').split(' ')
         self._root_path = global_config.get_raw('scan_res', 'root_path')
         self._depth = global_config.config['scan_res'].getint('depth')
+
         # 根据根目录和深度获取所有有资源数据的父级文件夹
-        self._root_dirs = [self._root_path] if self._depth <= 1 else search_depth_sub_dirs(
-            self._root_path, self._depth)
+        _tmp_root_dirs = []
+        for _dir in _tmp_root_dirs.split():
+            if not os.path.exists(_dir):
+                continue
+            _tmp_root_dirs.extend([_dir] if self._depth <= 1 else search_depth_sub_dirs(
+                _dir, self._depth))
+
+        self._root_dirs = _tmp_root_dirs
 
         self._set_collection_cover_res_idx = global_config.config['scan_res'].getint(
             'set_collection_cover_res_idx')

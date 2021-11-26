@@ -1,5 +1,26 @@
 {
+  "name": "cms-scripting",
+  "version": "1.0.0",
+  "description": "cms scripts",
+  "main": "main.py",
+  "scripts": {
+    "format": "npx prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/funnyzak/cms-scripting.git"
+  },
+  "keywords": [
+    "python",
+    "cms"
+  ],
+  "author": "funnyzak <silenceace@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/funnyzak/cms-scripting/issues"
+  },
+  "homepage": "https://github.com/funnyzak/cms-scripting#readme",
   "devDependencies": {
-    "prettier": "^2.4.1"
+    "prettier": "2.4.1"
   }
 }

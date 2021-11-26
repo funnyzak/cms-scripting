@@ -6,6 +6,6 @@ services:
       dockerfile: ./Dockerfile
     container_name: monitor_data
     restart: always
-    command: ["python3", "main.py", "config.json"]
+    command: ['python3', 'main.py', 'config.json']
     volumes:
       - .:/app

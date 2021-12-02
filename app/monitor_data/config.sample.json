@@ -1,17 +1,22 @@
 {
+  "###说明":"复制此文件使用时，请把带###开头的注释删除。",
   "postUrl": {
+    "###":"brt 为brt厂商数据上报地址；ctml为恒湿机上报数据地址。",
     "brt": "http://domain/notify?way-ms",
     "cthm": "http://domain/notify?way-ms"
   },
   "list": [
     {
       "id": "brt devices",
+      "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机",
       "type": "brt",
       "interval": 30,
       "timeSeed": 25,
       "deviceList": [
         {
+          "###type": "TH为温湿度传感器监测2个数，VOC为VOC多功能传感器监测5个数",
           "type": "TH",
+          "###mac": "必填，需和后端配置MAC对应",
           "mac": "F94288A779D5",
           "temp": 250,
           "humi": 500,
@@ -20,11 +25,13 @@
         {
           "type": "VOC",
           "mac": "C4646EFB4C6A",
+          "###temp": "temp: 温度  humi: 湿度 lux:光照 eco2:二氧化碳 tvoc:空气质量。单位请使用三位数",
           "temp": 250,
           "humi": 500,
           "lux": 300,
           "eco2": 320,
           "tvoc": 150,
+          "###pwr": "电量：0-100",
           "pwr": 99
         }
       ]
@@ -37,9 +44,23 @@
       "device": {
         "type": "CTHM",
         "mac": "F94288A779D5",
+        "###ip": "局域网分配的IP，可不填",
         "ip": "192.168.0.11",
+        "###temp": "温度。 恒湿机单位请使用4位数，千",
         "temp": 2500,
-        "humi": 5000
+        "humi": 5000,
+        "###runningStatus": "此为恒湿机的运行状态，依次为：恒定湿度 压缩机是否开启 蒸发温度报警 电导率报警 溢水报警 缺水报警 加湿器状态 加湿风机状态 除湿风机状态",
+        "runningStatus": {
+          "constantHumidity": 46,
+          "compressorOpen": false,
+          "evaporationTemperatureAlarm": false,
+          "conductivityAlarm": true,
+          "waterOverflowAlarm": true,
+          "waterShortageAlarm": false,
+          "humidifierStatus": false,
+          "humidifyingFanStatus": false,
+          "dehumidifierFanStatus": false
+        }
       }
     }
   ]

@@ -4,6 +4,7 @@
   "description": "cms scripts",
   "main": "main.py",
   "scripts": {
+    "commit": "cz",
     "format": "npx prettier --write ."
   },
   "repository": {
@@ -21,6 +22,12 @@
   },
   "homepage": "https://github.com/funnyzak/cms-scripting#readme",
   "devDependencies": {
+    "cz-conventional-changelog": "^3.3.0",
     "prettier": "2.4.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

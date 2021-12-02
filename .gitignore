@@ -127,6 +127,8 @@ test.json
 test*.json
 test_*.json
 config_*.json
+config-*.json
+
 # npm
 node_modules
 yarn.lock

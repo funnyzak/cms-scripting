@@ -108,7 +108,8 @@ class RandomMonitorData(object):
             "localIp": device['ip'],
             "time": int(time.time()) - rd.randrange(0, gateway['timeSeed'], 1),
             "humi": str(format(device['humi'] - rd.randrange(0, 100, 10), "x")),
-            "temp": str(format(device['temp'] - rd.randrange(0, 150, 10), "x"))
+            "temp": str(format(device['temp'] - rd.randrange(0, 150, 10), "x")),
+            "runningStatus": device['runningStatus']
         }
         return json.dumps(log, sort_keys=True, indent=4)
 

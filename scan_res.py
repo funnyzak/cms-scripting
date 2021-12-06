@@ -65,7 +65,7 @@ class ScanResource:
 
         # 根据根目录和深度获取所有有资源数据的父级文件夹
         _tmp_root_dirs = []
-        for _dir in _tmp_root_dirs.split():
+        for _dir in self._root_path.split():
             if not os.path.exists(_dir):
                 continue
             _tmp_root_dirs.extend([_dir] if self._depth <= 1 else search_depth_sub_dirs(

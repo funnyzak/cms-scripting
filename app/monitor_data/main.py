@@ -122,8 +122,8 @@ class RandomMonitorData(object):
             "macId": device['mac'],
             "localIp": device['ip'],
             "time": int(time.time()) - rd.randrange(0, gateway['timeSeed'], 1),
-            "humi": str(format(device['humi'] - rd.randrange(-50, 50, 2), "x")),
-            "temp": str(format(device['temp'] - rd.randrange(-50, 50, 2), "x")),
+            "humi": str(format(device['humi'] + rd.randrange(-50, 50, 2), "x")),
+            "temp": str(format(device['temp'] + rd.randrange(-50, 50, 2), "x")),
             "runningStatus": device['runningStatus']
         }
         return json.dumps(log, sort_keys=True, indent=4)

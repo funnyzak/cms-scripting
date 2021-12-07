@@ -204,7 +204,7 @@ class ScanResource:
         pass
 
     def start_check(self):
-        if not os.path.exists(self._root_path):
+        if len(self._root_dirs) == 0:
             raise PException("扫描资源目录不存在，请检查")
         if self.session['user']['mid'] is None:
             raise PException('请登陆博物馆管理账户')
@@ -265,6 +265,7 @@ class ScanResource:
                 continue
             dir_one['num'] = mgs.group('num')
             dir_one['name'] = mgs.group('name')
+            dir_one['parent'] = root_path
             match_list.append(dir_one)
             # 判断并加入藏品是否有子组件文件夹
             sub_dir_list = self.get_subdir_from_root(dir_one['dir_path'])
@@ -360,7 +361,7 @@ class ScanResource:
             return None
         source_path = res['full_path']
         target_path = os.path.join(
-            self._copy_target_path, res['full_path'].replace(self._root_path, "")[1:])
+            self._copy_target_path, res['full_path'].replace(dir_info['parent'], "")[1:])
         target_dir = target_path[0:len(target_path) - len(res['origin_name'])]
         if self._copy_target_path_rename:
             _file_date = ts_2_d(res['create_time'])
@@ -407,7 +408,7 @@ class ScanResource:
         通过DB的方式，资源直接入库
         """
         save_path = res['full_path'].replace(
-            self._root_path, "").replace(os.path.sep, "/")
+            dir_info['parent'], "").replace(os.path.sep, "/")
         url = "{}{}".format(self._resource_url_prefix, save_path)
         res_md5 = res['md5']
         res_size = res['size']
@@ -575,8 +576,10 @@ class ScanResource:
         end_ts = now_ts_s()
         elapsed_td = second_2_td(end_ts - self._start_ts)
 
+        root_dirs_str = '\t'.join(list(map(lambda v: v,  self._root_dirs)))
+
         summary = "扫描文件夹 {}，处理了 {} 个文件夹，其中成功 {} 个，待确认 {} 个。 共计入库 {} 个资源, 总处理大小 {}。任务开始于：{}，总耗时：{}。{}".format(
-            self._root_path,
+            root_dirs_str,
             total_dir_count,
             success,
             total_dir_count - success,
@@ -603,7 +606,7 @@ class ScanResource:
             send_wechat(self._jsd_key, "扫描磁盘资源并入库完成。", summary)
 
         if self._copy_target_path == '':
-            logger.info("请把 %s 的目录的成功处理的文件夹复制或移动到对应的Web资源目录。成功的文件夹有：%s", self._root_path,
+            logger.info("请把 %s 的目录的成功处理的文件夹复制或移动到对应的Web资源目录。成功的文件夹有：%s", root_dirs_str,
                         '、'.join(
                             map(lambda y: y['dir_name'], list(filter(lambda x: 'op' in x.keys(), self.sub_dir_list)))))
         pass

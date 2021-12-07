@@ -67,17 +67,17 @@ class RandomMonitorData(object):
             "addr_type": 1,
             "scan_rssi": rd.randrange(50, 90, 1),
             "scan_time": int(time.time()) - rd.randrange(0, time_seed, 1),
-            "humi": str(format(device['humi'] - rd.randrange(0, 5, 1), "x")),
+            "humi": str(format(device['humi'] + rd.randrange(-5, 5, 1), "x")),
             "pwr_percent": str(format(device['pwr'], "x")),
-            "temp": str(format(device['temp'] - rd.randrange(0, 3, 1), "x"))
+            "temp": str(format(device['temp'] + rd.randrange(-5, 5, 1), "x"))
         }
         if device['type'] == 'VOC':
             log['lux'] = str(
-                format(device['lux'] - rd.randrange(0, 5, 1), "x"))
+                format(device['lux'] + rd.randrange(-5, 5, 1), "x"))
             log['tvoc'] = str(
-                format(device['tvoc'] - rd.randrange(0, 5, 1), "x"))
+                format(device['tvoc'] + rd.randrange(-5, 5, 1), "x"))
             log['eco2'] = str(
-                format(device['eco2'] - rd.randrange(0, 5, 1), "x"))
+                format(device['eco2'] + rd.randrange(-5, 5, 1), "x"))
         return log
 
     def random_brt_gateway_data(self, gateway):
@@ -107,8 +107,8 @@ class RandomMonitorData(object):
             "macId": device['mac'],
             "localIp": device['ip'],
             "time": int(time.time()) - rd.randrange(0, gateway['timeSeed'], 1),
-            "humi": str(format(device['humi'] - rd.randrange(0, 100, 10), "x")),
-            "temp": str(format(device['temp'] - rd.randrange(0, 150, 10), "x")),
+            "humi": str(format(device['humi'] - rd.randrange(-50, 50, 2), "x")),
+            "temp": str(format(device['temp'] - rd.randrange(-50, 50, 2), "x")),
             "runningStatus": device['runningStatus']
         }
         return json.dumps(log, sort_keys=True, indent=4)
@@ -126,18 +126,18 @@ class RandomMonitorData(object):
         """
         : 网关日志提交到服务器
         """
-        logger.info('Post Data: %s To %s .', data, post_url)
+        logger.info('%s Post Data: %s To %s .', self.config['name'], data, post_url)
         try:
             requests.post(post_url, data=data, headers={
                           "Content-Type": "application/json"})
         except ConnectionError:
-            logger.error('post connect error.')
+            logger.error('%s post connect error.', self.config['name'])
         except:
-            logger.error("post throw error.")
+            logger.error("%s post throw error.", self.config['name'])
         else:
-            logger.info('post success.')
+            logger.info('%s post success.', self.config['name'])
         finally:
-            logger.info('post done.')
+            logger.info('%s post finished.', self.config['name'])
 
     def post_one_data_tohost(self):
         """
@@ -155,17 +155,23 @@ class RandomMonitorData(object):
         self.post_data_to_host(self.random_one_gateway_json_data(gateway),
                                self.config['postUrl'][gateway['type']])
 
-    def start(self):
+    def schedules(self):
         _gateway_idx = 0
+        if not self.config['enable']:
+            logger.info('%s setting disabled, passed.', _json_config['name'])
+            return
+
         for gateway in self.config['list']:
-            schedule.every(gateway['interval']).to(gateway['interval'] + 10).seconds.do(
+            schedule.every(gateway['interval']).to(gateway['interval'] + 15).seconds.do(
                 self.post_one_data_tohost_by_index, _gateway_idx)
             _gateway_idx += 1
             logger.info('gateway: %s already schedule.', gateway['id'])
-        logger.info('has %s gateway started.', len(self.config['list']))
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+        logger.info('%s has %s gateway started.\n\n', self.config['name'], len(self.config['list']))
+
+def run_pending():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 if __name__ == '__main__':
@@ -177,8 +183,11 @@ if __name__ == '__main__':
     if not os.path.exists(config_json_path):
         shutil.copy(_TML_CONFIG_JSON_PATH, config_json_path)
 
-    json_config = json.loads(
+    json_config_list = json.loads(
         open(config_json_path, mode='r', encoding='utf-8').read())
 
-    _rmds = RandomMonitorData(json_config)
-    _rmds.start()
+    for _json_config in json_config_list:
+        _rmds = RandomMonitorData(_json_config)
+        _rmds.schedules()
+
+    run_pending()

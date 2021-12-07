@@ -1,67 +1,75 @@
-{
-  "###说明":"复制此文件使用时，请把带###开头的注释删除。",
-  "postUrl": {
-    "###":"brt 为brt厂商数据上报地址；ctml为恒湿机上报数据地址。",
-    "brt": "http://domain/notify",
-    "cthm": "http://domain/notify"
-  },
-  "list": [
-    {
-      "id": "brt devices",
-      "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机",
-      "type": "brt",
-      "interval": 30,
-      "timeSeed": 25,
-      "deviceList": [
-        {
-          "###type": "TH为温湿度传感器监测2个数，VOC为VOC多功能传感器监测5个数",
-          "type": "TH",
-          "###mac": "必填，需和后端配置MAC对应",
-          "mac": "F94288A779D5",
-          "temp": 250,
-          "humi": 500,
-          "pwr": 99
-        },
-        {
-          "type": "VOC",
-          "mac": "C4646EFB4C6A",
-          "###temp": "temp: 温度  humi: 湿度 lux:光照 eco2:二氧化碳 tvoc:空气质量。数值必须为整数，数值需 x10，如温度为25，则设置250。",
-          "temp": 250,
-          "humi": 500,
-          "lux": 300,
-          "eco2": 320,
-          "tvoc": 150,
-          "###pwr": "电量：0-100",
-          "pwr": 99
-        }
-      ]
+[
+  {
+    "name": "这是一个配置",
+    "###enable": "是否启用该规则 Boolean值。",
+    "enable": true,
+    "###特别说明": "复制此文件使用时，请把带###开头的注释全部删除。",
+    "postUrl": {
+      "###": "brt 为brt厂商数据上报地址；ctml为恒湿机上报数据地址。",
+      "brt": "http://domain/notify",
+      "cthm": "http://domain/notify"
     },
-    {
-      "id": "cthm device",
-      "type": "cthm",
-      "interval": 30,
-      "timeSeed": 25,
-      "device": {
-        "type": "CTHM",
-        "mac": "F94288A779D5",
-        "###ip": "局域网分配的IP，可不填",
-        "ip": "192.168.0.11",
-        "###temp": "温度。数值必须为整数，数值需 x100，如：温度为25 则设置 2500",
-        "temp": 2500,
-        "humi": 5000,
-        "###runningStatus": "此为恒湿机的运行状态，依次为：恒定湿度 压缩机是否开启 蒸发温度报警 电导率报警 溢水报警 缺水报警 加湿器状态 加湿风机状态 除湿风机状态",
-        "runningStatus": {
-          "constantHumidity": 46,
-          "compressorOpen": false,
-          "evaporationTemperatureAlarm": false,
-          "conductivityAlarm": true,
-          "waterOverflowAlarm": true,
-          "waterShortageAlarm": false,
-          "humidifierStatus": false,
-          "humidifyingFanStatus": false,
-          "dehumidifierFanStatus": false
+    "list": [
+      {
+        "id": "brt devices",
+        "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机",
+        "type": "brt",
+        "###interval": "请求数据发送间隔，单位（秒）",
+        "interval": 30,
+        "###timeSeed": "此为扫描时间左右当前时间的取值范围，单位（秒）",
+        "timeSeed": 25,
+        "deviceList": [
+          {
+            "###type": "TH为温湿度传感器监测2个数，VOC为VOC多功能传感器监测5个数",
+            "###mac": "必填，需和后端配置MAC对应",
+            "type": "TH",
+            "mac": "F94288A779D5",
+            "temp": 210,
+            "humi": 500,
+            "pwr": 99
+          },
+          {
+            "type": "VOC",
+            "mac": "C4646EFB4C6A",
+            "###temp": "temp: 温度  humi: 湿度 lux:光照 luxNight:晚上光照 eco2:二氧化碳 tvoc:空气质量。数值必须为整数，数值需 x10，如温度为25，则设置210。",
+            "temp": 210,
+            "humi": 500,
+            "lux": 243,
+            "luxNight": 10,
+            "eco2": 320,
+            "tvoc": 150,
+            "###pwr": "电量：1-100",
+            "pwr": 99
+          }
+        ]
+      },
+      {
+        "id": "cthm device",
+        "type": "cthm",
+        "interval": 30,
+        "timeSeed": 21,
+        "device": {
+          "type": "CTHM",
+          "mac": "F94288A779D5",
+          "###ip": "局域网分配的IP，可不填",
+          "ip": "192.168.0.11",
+          "###temp": "温度。数值必须为整数，数值需 x100，如：温度为21 则设置 2100",
+          "temp": 2100,
+          "humi": 5000,
+          "###runningStatus": "此为恒湿机的运行状态，依次为：恒定湿度 压缩机是否开启 蒸发温度报警 电导率报警 溢水报警 缺水报警 加湿器状态 加湿风机状态 除湿风机状态",
+          "runningStatus": {
+            "constantHumidity": 46,
+            "compressorOpen": false,
+            "evaporationTemperatureAlarm": false,
+            "conductivityAlarm": true,
+            "waterOverflowAlarm": true,
+            "waterShortageAlarm": false,
+            "humidifierStatus": false,
+            "humidifyingFanStatus": false,
+            "dehumidifierFanStatus": false
+          }
         }
       }
-    }
-  ]
-}
+    ]
+  }
+]

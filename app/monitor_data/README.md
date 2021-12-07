@@ -26,3 +26,27 @@ pip3 install -i https://pypi.doubanio.com/simple/ -r requirements.txt
 # 如果不指定配置路径则使用脚本所在目录的config.json文件
 python3 main.py './config.json'
 ```
+
+## 后台运行
+
+使用Compose使用Docker创建容器运行。
+
+创建如下 `docker-compose.yml` 文件:
+
+```yaml
+# 注意修改对应的配置文件
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: monitor_data
+    restart: always
+    command: ['python3', 'main.py', 'config.json']
+    volumes:
+      - .:/app
+
+```
+
+然后 `docker-composeu up -d` 启动。

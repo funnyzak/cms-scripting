@@ -213,7 +213,7 @@ class ScanResource:
 
         logger.info("配置信息：%s", self.config_desc())
 
-        logger.info("文件夹过滤后，找到符合 %s 名称规则的文件夹有 %s 个，分别是：\n%s。 \n\n共%s个。 n\n不符合的文件夹有 %s 个，分别是：\n%s。\n\n共%s个",
+        logger.info("文件夹过滤后，找到符合 %s 名称规则的文件夹有 %s 个，分别是：\n%s。 \n\n共%s个。 \n不符合的文件夹有 %s 个，分别是：\n%s。\n\n共%s个",
                     self._match_dir_pattern, len(self.sub_dir_list),
                     '\n'.join(list(map(lambda v: '文件夹：{} 编号：{} 名称：{}'.format(v['dir_name'],
                                                                              v['num'], v['name']), self.sub_dir_list))),
@@ -259,10 +259,10 @@ class ScanResource:
             return None
 
         for dir_one in dir_list:
-            if not is_match(dir_one['dir_name'], self._match_dir_pattern):
+            mgs = match_group(dir_one['dir_name'], self._match_dir_pattern)
+            if mgs is None:
                 no_match_list.append(dir_one)
                 continue
-            mgs = match_group(dir_one['dir_name'], self._match_dir_pattern)
             dir_one['num'] = mgs.group('num')
             dir_one['name'] = mgs.group('name')
             match_list.append(dir_one)

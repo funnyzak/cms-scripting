@@ -1,38 +1,33 @@
-# CollScriptingScanResource
-
-## 主要功能
+# CMS-Scripting
 
 针对藏品资源管理系统的各种业务下的数据处理脚本程序。
+
+
+**下一步：**
+
+- [ ] 资源扫描入库支持多父文件夹设置
+- [ ] 环境Fake server支持光照监测值按日出日落变化
+
 
 ## 运行环境
 
 - [Python 3](https://www.python.org/)
 
-## 第三方库
-
-- 需要使用到的库已经放在 requirements.txt，使用 pip 安装的可以使用指令
-  `pip3 install -r requirements.txt`
-- 如果国内安装第三方库比较慢，可以使用以下指令进行源加速
-  `pip3 install -i https://pypi.doubanio.com/simple/ -r requirements.txt`
-
-## 配置当前目录执行环境
-
-安装 virtualenv
+## 环境设置
 
 ```bash
+# 安装 virtualenv
 pip3 install -i https://pypi.doubanio.com/simple/ virtualenv
+
+# 在程序目录，进入和激活虚拟环境
+virtualenv venv && source venv/bin/activate
+
+# 安装依赖库
+pip3 install -i https://pypi.doubanio.com/simple/ -r requirements.txt
 ```
 
-在程序目录执行
 
-```bash
-virtualenv venv
-source venv/bin/activate
-```
-
-然后执行如上命令
-
-## 使用教程
+## 主应用使用
 
 1. 下载 Python3 安装包，安装和配置环境
 2. 复制一份 config.sample.ini 为 config.ini

@@ -2,8 +2,8 @@
   "###说明":"复制此文件使用时，请把带###开头的注释删除。",
   "postUrl": {
     "###":"brt 为brt厂商数据上报地址；ctml为恒湿机上报数据地址。",
-    "brt": "http://domain/notify?way-ms",
-    "cthm": "http://domain/notify?way-ms"
+    "brt": "http://domain/notify",
+    "cthm": "http://domain/notify"
   },
   "list": [
     {

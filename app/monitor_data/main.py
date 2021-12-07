@@ -57,7 +57,18 @@ class RandomMonitorData(object):
     def __init__(self, config):
         self.config = config
 
+    def is_night(self):
+        """
+        : 是否夜晚
+        """
+        night_interval = self.config['nightInterval'] if self.config['nightInterval'] is not None and len(
+            self.config['nightInterval']) == 2 else [17, 9]
+        _loctime = time.localtime()
+
+        return _loctime.tm_hour >= night_interval[0] or _loctime.tm_hour <= night_interval[1]
+
     # 生存随机设备随机日志信息
+
     def random_brt_device_data(self, device, time_seed=10):
         """
         :param device: 设备对象
@@ -71,9 +82,13 @@ class RandomMonitorData(object):
             "pwr_percent": str(format(device['pwr'], "x")),
             "temp": str(format(device['temp'] + rd.randrange(-5, 5, 1), "x"))
         }
-        if device['type'] == 'VOC':
+
+        if device['type'].upper() == 'VOC':
+            lux = (device['luxNight'] if device['luxNight']
+                   is not None else 0) if self.is_night() else device['lux']
+
             log['lux'] = str(
-                format(device['lux'] + rd.randrange(-5, 5, 1), "x"))
+                format(0 if lux == 0 else lux + rd.randrange(-5, 5, 1), "x"))
             log['tvoc'] = str(
                 format(device['tvoc'] + rd.randrange(-5, 5, 1), "x"))
             log['eco2'] = str(
@@ -126,7 +141,8 @@ class RandomMonitorData(object):
         """
         : 网关日志提交到服务器
         """
-        logger.info('%s Post Data: %s To %s .', self.config['name'], data, post_url)
+        logger.info('%s Post Data: %s To %s .',
+                    self.config['name'], data, post_url)
         try:
             requests.post(post_url, data=data, headers={
                           "Content-Type": "application/json"})
@@ -166,7 +182,9 @@ class RandomMonitorData(object):
                 self.post_one_data_tohost_by_index, _gateway_idx)
             _gateway_idx += 1
             logger.info('gateway: %s already schedule.', gateway['id'])
-        logger.info('%s has %s gateway started.\n\n', self.config['name'], len(self.config['list']))
+        logger.info('%s has %s gateway started.\n\n',
+                    self.config['name'], len(self.config['list']))
+
 
 def run_pending():
     while True:

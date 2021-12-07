@@ -1,9 +1,14 @@
 [
   {
-    "name": "这是一个配置",
-    "###enable": "是否启用该规则 Boolean值。",
-    "enable": true,
+    "###enable": "是否启用该规则，Boolean值。",
     "###特别说明": "复制此文件使用时，请把带###开头的注释全部删除。",
+    "###nightInterval": "夜晚的时间范围，小时区间。",
+    "name": "这是一个配置",
+    "enable": true,
+    "nightInterval": [
+      17,
+      9
+    ],
     "postUrl": {
       "###": "brt 为brt厂商数据上报地址；ctml为恒湿机上报数据地址。",
       "brt": "http://domain/notify",
@@ -12,7 +17,7 @@
     "list": [
       {
         "id": "brt devices",
-        "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机",
+        "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机。",
         "type": "brt",
         "###interval": "请求数据发送间隔，单位（秒）",
         "interval": 30,
@@ -31,14 +36,14 @@
           {
             "type": "VOC",
             "mac": "C4646EFB4C6A",
-            "###temp": "temp: 温度  humi: 湿度 lux:光照 luxNight:晚上光照 eco2:二氧化碳 tvoc:空气质量。数值必须为整数，数值需 x10，如温度为25，则设置210。",
+            "###temp": "temp: 温度  humi: 湿度 lux:光照 luxNight:晚上光照(如果设置0，则此值没有上下浮动) eco2:二氧化碳 tvoc:空气质量。数值必须为整数，数值需 x10，如温度为25，则设置210。",
+            "###pwr": "电量：1-100",
             "temp": 210,
             "humi": 500,
             "lux": 243,
             "luxNight": 10,
             "eco2": 320,
             "tvoc": 150,
-            "###pwr": "电量：1-100",
             "pwr": 99
           }
         ]

@@ -134,5 +134,7 @@ node_modules
 yarn.lock
 package-lock.json
 
+config.*.*
+!config.sample.*
 
 app/**/docker-compose.yml

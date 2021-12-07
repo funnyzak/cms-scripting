@@ -78,21 +78,21 @@ class RandomMonitorData(object):
             "addr_type": 1,
             "scan_rssi": rd.randrange(50, 90, 1),
             "scan_time": int(time.time()) - rd.randrange(0, time_seed, 1),
-            "humi": str(format(device['humi'] + rd.randrange(-5, 5, 1), "x")),
+            "humi": str(format(int(device['humi'] + rd.randrange(-5, 5, 1)), "x")),
             "pwr_percent": str(format(device['pwr'], "x")),
-            "temp": str(format(device['temp'] + rd.randrange(-5, 5, 1), "x"))
+            "temp": str(format(int(device['temp'] + rd.randrange(-5, 5, 1)), "x"))
         }
 
         if device['type'].upper() == 'VOC':
-            lux = (device['luxNight'] if device['luxNight']
+            lux = (device['luxNight'] if 'luxNight' in device.keys() and device['luxNight']
                    is not None else 0) if self.is_night() else device['lux']
 
             log['lux'] = str(
-                format(0 if lux == 0 else lux + rd.randrange(-5, 5, 1), "x"))
+                format(int(0 if lux == 0 else lux + rd.randrange(-5, 5, 1)), "x"))
             log['tvoc'] = str(
-                format(device['tvoc'] + rd.randrange(-5, 5, 1), "x"))
+                format(int(device['tvoc'] + rd.randrange(-5, 5, 1)), "x"))
             log['eco2'] = str(
-                format(device['eco2'] + rd.randrange(-5, 5, 1), "x"))
+                format(int(device['eco2'] + rd.randrange(-5, 5, 1)), "x"))
         return log
 
     def random_brt_gateway_data(self, gateway):
@@ -122,8 +122,8 @@ class RandomMonitorData(object):
             "macId": device['mac'],
             "localIp": device['ip'],
             "time": int(time.time()) - rd.randrange(0, gateway['timeSeed'], 1),
-            "humi": str(format(device['humi'] + rd.randrange(-50, 50, 2), "x")),
-            "temp": str(format(device['temp'] + rd.randrange(-50, 50, 2), "x")),
+            "humi": str(format(int(device['humi'] + rd.randrange(-50, 50, 10)), "x")),
+            "temp": str(format(int(device['temp'] + rd.randrange(-50, 50, 10)), "x")),
             "runningStatus": device['runningStatus']
         }
         return json.dumps(log, sort_keys=True, indent=4)

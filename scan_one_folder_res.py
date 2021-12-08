@@ -130,10 +130,10 @@ class ScanOneFolderRes:
         :return:
         """
         for i, _rule in enumerate(get_res_num_rules):
-            if not is_match(one_file['name'], _rule['expression']):
+            mgs = match_group(one_file['name'], _rule['expression'])
+            if mgs is None:
                 continue
 
-            mgs = match_group(one_file['name'], _rule['expression'])
             one_file['match'] = dict(num=mgs.group('num'), name=mgs.group('name'),
                                      rule=_rule,
                                      dbdata=self.search_db_coll_info_by_num(coll_info_num_field_set[_rule['field']],

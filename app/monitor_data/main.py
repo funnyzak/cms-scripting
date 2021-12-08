@@ -46,6 +46,13 @@ def new_logger(log_name=None):
     logger.addHandler(file_handler)
     return logger
 
+def get_timestamp(timeStamp):
+    timeStamp = timeStamp
+    timeArray = time.localtime(timeStamp)
+    otherStyleTime = time.strftime("%Y-%m-%d", timeArray)
+    timeArray = time.strptime(otherStyleTime, "%Y-%m-%d")
+    timeStamp = int(time.mktime(timeArray))
+    return (timeStamp,timeStamp+86400)
 
 logger = new_logger()
 
@@ -59,13 +66,15 @@ class RandomMonitorData(object):
 
     def is_night(self):
         """
-        : 是否夜晚
+        :return: 判断当前是否夜晚
         """
-        night_interval = self.config['nightInterval'] if self.config['nightInterval'] is not None and len(
-            self.config['nightInterval']) == 2 else [17, 9]
-        _loctime = time.localtime()
-
-        return _loctime.tm_hour >= night_interval[0] or _loctime.tm_hour <= night_interval[1]
+        night_interval = self.config['nightInterval'] if self.config['nightInterval'] is not None else {
+            "start": 63000,
+            "end": 118800
+        }
+        now_ts = int(time.time())
+        day_ts = get_timestamp(now_ts)
+        return (day_ts[0] + night_interval['start']) < now_ts and (day_ts[0] + night_interval['end']) > now_ts
 
     # 生存随机设备随机日志信息
 

@@ -1,0 +1,26 @@
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: 当前文件",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: 环境模拟",
+      "type": "python",
+      "python.defaultInterpreterPath": "${workspaceFolder}/app/monitor_data/venv/bin/python3",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/monitor_data/main.py",
+      "args": [
+        "${workspaceFolder}/app/monitor_data/config.test.json"
+      ],
+      "console": "integratedTerminal"
+    }
+  ]
+}

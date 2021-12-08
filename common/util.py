@@ -284,6 +284,18 @@ def ts_2_d(ts_s):
     return datetime.fromtimestamp(ts_s)
 
 
+def get_timestamp(timeStamp):
+    """
+    :param timeStamp: 时间戳（秒）
+    :return: 根据时间戳获取该天的开始和结束时间戳
+    """
+    timeStamp = timeStamp
+    timeArray = time.localtime(timeStamp)
+    otherStyleTime = time.strftime("%Y-%m-%d", timeArray)
+    timeArray = time.strptime(otherStyleTime, "%Y-%m-%d")
+    timeStamp = int(time.mktime(timeArray))
+    return (timeStamp,timeStamp+86400)
+
 def human_size(size):
     """
     递归实现，精确为最大单位值 + 小数点后三位

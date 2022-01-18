@@ -20,7 +20,9 @@
         "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机。",
         "type": "brt",
         "###interval": "请求数据发送间隔，单位（秒）",
+        "###intervalTo": "请求数据发送间隔 范围，单位（秒），如果设置则请求间隔为范围内随机值",
         "interval": 30,
+        "intervalTo": 35,
         "###timeSeed": "此为扫描时间左右当前时间的取值范围，单位（秒）",
         "timeSeed": 25,
         "deviceList": [

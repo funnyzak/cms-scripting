@@ -187,7 +187,9 @@ class RandomMonitorData(object):
             return
 
         for gateway in self.config['list']:
-            schedule.every(gateway['interval']).to(gateway['interval'] + 15).seconds.do(
+            interval = gateway['interval'] if 'interval' in gateway.keys() and gateway['interval'] is not None else 15
+            intervalTo = gateway['intervalTo'] if 'intervalTo' in gateway.keys() and gateway['intervalTo'] is not None else (interval + 15)
+            schedule.every(interval).to(intervalTo).seconds.do(
                 self.post_one_data_tohost_by_index, _gateway_idx)
             _gateway_idx += 1
             logger.info('gateway: %s already schedule.', gateway['id'])

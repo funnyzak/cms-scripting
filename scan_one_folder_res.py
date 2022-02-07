@@ -131,13 +131,19 @@ class ScanOneFolderRes:
         """
         for i, _rule in enumerate(get_res_num_rules):
             mgs = match_group(one_file['name'], _rule['expression'])
-            if mgs is None:
+            if mgs is None or mgs.group('num') is None:
                 continue
 
-            one_file['match'] = dict(num=mgs.group('num'), name=mgs.group('name'),
+            _name = mgs.group(
+                'name') if 'name' in mgs.groupdict() else one_file['name']
+            _other_type = _rule['otherType'] if 'otherType' in _rule.keys() else None
+
+            # print(coll_info_num_field_set[_rule['field']], _name, _other_type)
+
+            one_file['match'] = dict(num=mgs.group('num'), name=_name,
                                      rule=_rule,
                                      dbdata=self.search_db_coll_info_by_num(coll_info_num_field_set[_rule['field']],
-                                                                            mgs.group('num'), _rule['otherType']))
+                                                                            mgs.group('num'), _other_type))
             break
         return one_file
         pass
@@ -145,6 +151,8 @@ class ScanOneFolderRes:
     def search_db_coll_info_by_num(self, num_field, num_field_value, other_type):
         for _item_info in self._museum_all_coll_info:
             if _item_info[num_field] == num_field_value:
+                # logger.info("%s %s。", num_field, num_field_value)
+
                 if len(num_field.split('_other')) == 1:
                     return _item_info
                 elif _item_info['c_other_type'] == other_type:
@@ -274,6 +282,7 @@ class ScanOneFolderRes:
         match_not_db_list = []
         match_db_list = []
         res_total_size = 0
+
 
         for i, _one_file in enumerate(self._folder_all_res):
             _file_analysis_info = self.analysis_file_num(_one_file)

@@ -13,8 +13,10 @@ import pymysql.cursors
 from pymysql import OperationalError
 
 from config import global_config
-from common import util
+from common import util, new_logger
 
+LOGGER_FILE_NAME = 'database.log'
+logger = new_logger(LOGGER_FILE_NAME)
 
 class DataBase:
     def __init__(self, uid=None, mid=None):
@@ -65,11 +67,12 @@ class DataBase:
         self.re_connect()
 
         extCnd = "AND `c_other_type` = '{}'".format(
-            otherCodeType) if otherCodeType else ''
+            otherCodeType) if otherCodeType is not None and len(otherCodeType) > 0 else ''
+
+        sql = "SELECT * FROM `kunlun_collection_login` WHERE {} = '{}' AND cl_mid = {} {} AND c_info_type = 'COLLECTION_LOGIN' AND c_del = 0 ORDER BY `id` DESC LIMIT 0,1".format(
+            numFieldName, fieldValue, self.mid, extCnd)
 
         with self.conn:
-            sql = "SELECT * FROM `kunlun_collection_login` WHERE {} = '{}' AND cl_mid = {} {} AND c_info_type = 'COLLECTION_LOGIN' AND c_del = 0 ORDER BY `id` DESC LIMIT 0,1".format(
-                numFieldName, fieldValue, self.mid, extCnd)
             self.curs.execute(sql)
             return self.curs.fetchone()
 

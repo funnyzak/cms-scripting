@@ -137,15 +137,19 @@ class ScanOneFolderRes:
             one_file['match'] = dict(num=mgs.group('num'), name=mgs.group('name'),
                                      rule=_rule,
                                      dbdata=self.search_db_coll_info_by_num(coll_info_num_field_set[_rule['field']],
-                                                                            mgs.group('num')))
+                                                                            mgs.group('num'), _rule['otherType']))
             break
         return one_file
         pass
 
-    def search_db_coll_info_by_num(self, num_field, num_field_value):
+    def search_db_coll_info_by_num(self, num_field, num_field_value, other_type):
         for _item_info in self._museum_all_coll_info:
             if _item_info[num_field] == num_field_value:
-                return _item_info
+                if len(num_field.split('_other')) == 1:
+                    return _item_info
+                elif _item_info['c_other_type'] == other_type:
+                    return _item_info
+
         return None
         pass
 

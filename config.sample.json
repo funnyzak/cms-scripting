@@ -2,42 +2,89 @@
   "scan_config": {
     "THREE_MODEL": {
       "name": "模型",
-      "dir_name_list": ["成果模型"],
+      "dir_name_list": [
+        "成果模型"
+      ],
       "ext_list": null
     },
     "IMAGE": {
       "name": "图片类型",
-      "dir_name_list": ["成果照片"],
-      "ext_list": ["jpeg", "jpg", "bmp", "png"]
+      "dir_name_list": [
+        "成果照片"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
     },
     "ARCHAEOLOGY": {
       "name": "考古线",
-      "dir_name_list": ["考古线"],
-      "ext_list": ["jpeg", "jpg", "bmp", "png"]
+      "dir_name_list": [
+        "考古线"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
     },
     "PEST_ANALYSE": {
       "name": "病虫害",
-      "dir_name_list": ["病虫害"],
-      "ext_list": ["jpeg", "jpg", "bmp", "png"]
+      "dir_name_list": [
+        "病虫害"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
     },
     "ORIGIN_CERT": {
       "name": "原始凭证",
-      "dir_name_list": ["原始凭证"],
-      "ext_list": ["jpeg", "jpg", "bmp", "png"]
+      "dir_name_list": [
+        "原始凭证"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
     },
     "POSITIVE_PHOTOGRAPHY": {
       "name": "正摄影像",
-      "dir_name_list": ["正摄影像"],
-      "ext_list": ["jpeg", "jpg", "bmp", "png"]
+      "dir_name_list": [
+        "正摄影像"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
     },
     "SIDE_SIX_IMAGE": {
       "name": "六视图",
-      "dir_name_list": ["六视图"],
-      "ext_list": ["jpeg", "jpg", "bmp", "png"]
+      "dir_name_list": [
+        "六视图"
+      ],
+      "ext_list": [
+        "jpeg",
+        "jpg",
+        "bmp",
+        "png"
+      ]
     },
     "SOURCE": {
       "name": "源数据",
-      "dir_name_list": ["采集三维", "采集照片"],
+      "dir_name_list": [
+        "采集三维",
+        "采集照片"
+      ],
       "ext_list": [
         "obj",
         "ai",
@@ -53,7 +100,9 @@
     },
     "DOCUMENT": {
       "name": "文档",
-      "dir_name_list": ["文档"],
+      "dir_name_list": [
+        "文档"
+      ],
       "ext_list": [
         "doc",
         "docx",
@@ -68,7 +117,9 @@
     },
     "ATTACHMENT": {
       "name": "附件",
-      "dir_name_list": ["附件"],
+      "dir_name_list": [
+        "附件"
+      ],
       "ext_list": [
         "jpg",
         "jpeg",
@@ -101,27 +152,41 @@
   "folder_check_config": [
     {
       "dir_name": "成果模型/low",
-      "ext_list": ["obj"]
+      "ext_list": [
+        "obj"
+      ]
     },
     {
       "dir_name": "成果模型/mid",
-      "ext_list": ["obj"]
+      "ext_list": [
+        "obj"
+      ]
     },
     {
       "dir_name": "成果模型/high",
-      "ext_list": ["obj"]
+      "ext_list": [
+        "obj"
+      ]
     },
     {
       "dir_name": "成果照片",
-      "ext_list": ["jpg", "jpeg"]
+      "ext_list": [
+        "jpg",
+        "jpeg"
+      ]
     },
     {
       "dir_name": "采集照片",
-      "ext_list": ["cr2"]
+      "ext_list": [
+        "cr2"
+      ]
     },
     {
       "dir_name": "采集三维",
-      "ext_list": ["obj", "wrp"]
+      "ext_list": [
+        "obj",
+        "wrp"
+      ]
     }
   ],
   "coll_api_paths": {
@@ -148,6 +213,14 @@
     {
       "expression": "^A-(?P<num>[\\da-zA-Z]+)[_-].*$",
       "field": "regNum",
+      "order": 1,
+      "enable": true,
+      "description": "说明"
+    },
+    {
+      "expression": "^A-(?P<num>[\\da-zA-Z]+)[_-].*$",
+      "field": "otherNum",
+      "otherType": "索书号",
       "order": 1,
       "enable": true,
       "description": "说明"
@@ -191,7 +264,9 @@
   "resource_cate_ext_list": [
     {
       "name": "压缩文件",
-      "extList": ["zip"],
+      "extList": [
+        "zip"
+      ],
       "cate": "ZIP"
     },
     {
@@ -246,7 +321,9 @@
     },
     {
       "name": "视频",
-      "extList": ["mp4"],
+      "extList": [
+        "mp4"
+      ],
       "cate": "VIDEO"
     },
     {
@@ -270,32 +347,56 @@
     },
     {
       "name": "病虫害",
-      "extList": ["jpg", "jpeg", "bmp", "png"],
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
       "cate": "PEST_ANALYSE"
     },
     {
       "name": "考古线图",
-      "extList": ["jpg", "jpeg", "bmp", "png"],
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
       "cate": "ARCHAEOLOGY"
     },
     {
       "name": "MP3",
-      "extList": ["mp3"],
+      "extList": [
+        "mp3"
+      ],
       "cate": "MP3"
     },
     {
       "name": "图片",
-      "extList": ["jpg", "jpeg", "bmp", "png"],
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
       "cate": "IMAGE"
     },
     {
       "name": "模型",
-      "extList": ["zip"],
+      "extList": [
+        "zip"
+      ],
       "cate": "THREE_MODEL"
     },
     {
       "name": "原始凭证",
-      "extList": ["jpg", "jpeg", "bmp", "png"],
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
       "cate": "ORIGIN_CERT"
     },
     {
@@ -330,12 +431,22 @@
     },
     {
       "name": "六视图",
-      "extList": ["jpg", "jpeg", "bmp", "png"],
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
       "cate": "SIDE_SIX_IMAGE"
     },
     {
       "name": "正摄影像",
-      "extList": ["jpg", "jpeg", "bmp", "png"],
+      "extList": [
+        "jpg",
+        "jpeg",
+        "bmp",
+        "png"
+      ],
       "cate": "POSITIVE_PHOTOGRAPHY"
     }
   ],

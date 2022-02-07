@@ -91,6 +91,8 @@ class ScanResource:
             'copy_target_path_to_compress_scale_precent')
         self.select_coll_info_where_field_name = global_config.get_raw(
             'scan_res', 'select_coll_info_where_field_name')
+        self.select_coll_info_where_other_type = global_config.get_raw(
+            'scan_res', 'select_coll_info_where_other_type')
         self._match_dir_pattern = global_config.get_raw(
             'scan_res', 'match_dir_pattern')
         self._auto_create_coll_info = global_config.config['scan_res'].getboolean(
@@ -194,6 +196,8 @@ class ScanResource:
             global_config.get_raw('scan_res', 'match_dir_pattern'))
         con_desc += "获取编号匹配数据库字段：{}\n".format(global_config.get_raw(
             'scan_res', 'select_coll_info_where_field_name'))
+        con_desc += "其他号字段对应的值：{}\n".format(
+            self.select_coll_info_where_other_type)
         con_desc += "资源URL前缀：{}\n".format(global_config.get_raw(
             'scan_res_common', 'resource_url_prefix'))
         con_desc += "资源搜索方式：{}\n".format(
@@ -519,16 +523,16 @@ class ScanResource:
             logger.info("%s原始路径 %s。", one_desc, dir_one.get('dir_path'))
 
             data_info = self.db.coll_one(
-                self.select_coll_info_where_field_name, dir_one.get('num'))
+                self.select_coll_info_where_field_name, dir_one.get('num'), self.select_coll_info_where_other_type)
             if data_info is None:
                 if not self._auto_create_coll_info:
                     logger.error("%s未找到对应的数据库记录，已跳过处理。\n\n", one_desc)
                     continue
                 else:
                     self.db.add_coll_by_dir(
-                        self.select_coll_info_where_field_name, dir_one['num'], dir_one['name'])
+                        self.select_coll_info_where_field_name, dir_one['num'], dir_one['name'], self.select_coll_info_where_other_type)
                     data_info = self.db.coll_one(
-                        self.select_coll_info_where_field_name, dir_one.get('num'))
+                        self.select_coll_info_where_field_name, dir_one.get('num'), self.select_coll_info_where_other_type)
                     logger.info("%s无数据库记录，已自动创建该目录对应藏品信息。", one_desc)
 
             logger.info("%s从数据库查到该对应数据库记录（ID：%s，名称：%s）。查询原始数据：%s..。", one_desc, data_info['id'], data_info['c_name'],

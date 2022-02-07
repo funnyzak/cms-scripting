@@ -41,7 +41,7 @@ class DataBase:
             except OperationalError:
                 self.conn.ping(True)
 
-    def add_coll_by_dir(self, numFieldName, numFieldValue, name):
+    def add_coll_by_dir(self, numFieldName, numFieldValue, name, otherCodeType):
         """
         根据识别的文件夹创建藏品信息
         :param num 识别文件夹提取的编号
@@ -50,22 +50,26 @@ class DataBase:
         """
         self.re_connect()
         with self.conn:
-            sql = "INSERT INTO `kunlun_collection_login`(`cl_mid`, `c_del`, `c_draft`, `{0}`, `c_name`, `c_info_type`, `c_add_time`, `c_update_time`, `c_update_user`, `c_add_user`, `c_review_status`, `c_status`) VALUES ({1}, 0, 0, '{2}', '{3}', 'COLLECTION_LOGIN', {4}, {4}, {5}, {5}, 'WAIT_SUBMIT', 'NO_STORAGE');".format(
-                numFieldName, self.mid, numFieldValue, name, util.now_ts_s(), self.uid)
+            sql = "INSERT INTO `kunlun_collection_login`(`cl_mid`, `c_del`, `c_draft`, `{0}`, `c_name`, `c_info_type`, `c_add_time`, `c_update_time`, `c_update_user`, `c_add_user`, `c_review_status`, `c_status`, `c_other_type`) VALUES ({1}, 0, 0, '{2}', '{3}', 'COLLECTION_LOGIN', {4}, {4}, {5}, {5}, 'WAIT_SUBMIT', 'NO_STORAGE', {6});".format(
+                numFieldName, self.mid, numFieldValue, name, util.now_ts_s(), self.uid,  "'{}'".format(otherCodeType) if otherCodeType else 'NULL')
             self.curs.execute(sql)
             self.conn.commit()
         return True
 
-    def coll_one(self, numFieldName, value):
+    def coll_one(self, numFieldName, fieldValue, otherCodeType):
         """
         从数据库查询匹配藏品信息
         value: key 对应的值
         return: 成功返回dict,失败返回 None
         """
         self.re_connect()
+
+        extCnd = "AND `c_other_type` = '{}'".format(
+            otherCodeType) if otherCodeType else ''
+
         with self.conn:
-            sql = "SELECT * FROM `kunlun_collection_login` WHERE {} = '{}' AND cl_mid = {} AND c_info_type = 'COLLECTION_LOGIN' AND c_del = 0 ORDER BY `id` DESC LIMIT 0,1".format(
-                numFieldName, value, self.mid)
+            sql = "SELECT * FROM `kunlun_collection_login` WHERE {} = '{}' AND cl_mid = {} {} AND c_info_type = 'COLLECTION_LOGIN' AND c_del = 0 ORDER BY `id` DESC LIMIT 0,1".format(
+                numFieldName, fieldValue, self.mid, extCnd)
             self.curs.execute(sql)
             return self.curs.fetchone()
 

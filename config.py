@@ -74,6 +74,7 @@ coll_info_num_field_set = dict(
     regNum='c_register_num',  # 总登记号
     cateNum='c_cate_num',  # 分类号
     oldNum='c_old_num',  # 旧号
+    otherNum='c_other_code', # 其他号
     collectionNum='c_collection_num',  # 入馆凭证号
     comeNum='c_come_num'  # 入馆登记号
 )

@@ -10,14 +10,15 @@
       "end": 118800
     },
     "postUrl": {
-      "###": "brt 为brt厂商数据上报地址；ctml为恒湿机上报数据地址。",
+      "###": "brt 为brt厂商数据上报地址；ctml为恒湿机上报数据地址;toprie为厂商。",
       "brt": "http://domain/notify",
-      "cthm": "http://domain/notify"
+      "cthm": "http://domain/notify",
+      "toprie": "http://domain/notify" 
     },
     "list": [
       {
         "id": "brt devices",
-        "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机。",
+        "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机；toprie为toprie厂商。",
         "type": "brt",
         "###interval": "请求数据发送间隔，单位（秒）",
         "###intervalTo": "请求数据发送间隔 范围，单位（秒），如果设置则请求间隔为范围内随机值",
@@ -50,6 +51,41 @@
           }
         ]
       },
+      {
+        "id": "toprie devices",
+        "###type": "此为厂商类型，brt为brtbeacon, cthm为通用恒湿机；toprie为toprie厂商。",
+        "type": "toprie",
+        "###interval": "请求数据发送间隔，单位（秒）",
+        "###intervalTo": "请求数据发送间隔 范围，单位（秒），如果设置则请求间隔为范围内随机值",
+        "interval": 30,
+        "intervalTo": 35,
+        "###timeSeed": "此为扫描时间左右当前时间的取值范围，单位（秒）",
+        "timeSeed": 25,
+        "deviceList": [
+          {
+            "###type": "TH为温湿度传感器监测2个数，VOC为VOC多功能传感器监测5个数",
+            "###mac": "必填，需和后端配置MAC对应",
+            "type": "TH",
+            "mac": "F94288A779D5",
+            "temp": 210,
+            "humi": 500,
+            "pwr": 99
+          },
+          {
+            "type": "VOC",
+            "mac": "C4646EFB4C6A",
+            "###temp": "temp: 温度  humi: 湿度 lux:光照 luxNight:晚上光照(如果设置0，则此值没有上下浮动) eco2:二氧化碳 tvoc:空气质量。数值必须为整数，数值需 x10，如温度为21，则设置210。",
+            "###pwr": "电量：1-100",
+            "temp": 210,
+            "humi": 500,
+            "lux": 243,
+            "luxNight": 10,
+            "eco2": 320,
+            "tvoc": 150,
+            "pwr": 99
+          }
+        ]
+      },      
       {
         "id": "cthm device",
         "type": "cthm",

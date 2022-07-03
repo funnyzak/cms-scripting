@@ -76,7 +76,7 @@ class RandomMonitorData(object):
         day_ts = get_timestamp(now_ts)
         return (day_ts[0] + night_interval['start']) < now_ts and (day_ts[0] + night_interval['end']) > now_ts
 
-    # 生存随机设备随机日志信息
+    # 生存随机brt设备随机日志信息
 
     def random_brt_device_data(self, device, time_seed=10):
         """
@@ -122,6 +122,54 @@ class RandomMonitorData(object):
             "cmd": rd.randrange(0, 1000, 1),
         }, sort_keys=True, indent=4)
 
+    # 生存随机toprie设备随机日志信息
+
+    def random_toprie_device_data(self, device, time_seed=10):
+        """
+        :param device: 设备对象
+        """
+        log = {
+            "ble_addr": device['mac'],
+            "addr_type": 1,
+            "scan_rssi": rd.randrange(50, 90, 1),
+            "scan_time": int(time.time()) - rd.randrange(0, time_seed, 1),
+            "humi": str(format(int(device['humi'] + rd.randrange(-5, 5, 1)), "x")),
+            "pwr_percent": str(format(device['pwr'], "x")),
+            "temp": str(format(int(device['temp'] + rd.randrange(-5, 5, 1)), "x"))
+        }
+
+        if device['type'].upper() == 'VOC':
+            lux = (device['luxNight'] if 'luxNight' in device.keys() and device['luxNight']
+                   is not None else 0) if self.is_night() else device['lux']
+
+            log['lux'] = str(
+                format(int(0 if lux == 0 else lux + rd.randrange(-5, 5, 1)), "x"))
+            log['tvoc'] = str(
+                format(int(device['tvoc'] + rd.randrange(-5, 5, 1)), "x"))
+            log['eco2'] = str(
+                format(int(device['eco2'] + rd.randrange(-5, 5, 1)), "x"))
+        return log
+
+
+    def random_toprie_gateway_data(self, gateway):
+        """
+        : 生成toprie网关数据
+        :param gateway: 网关信息
+        """
+        _device_list = []
+        for device in gateway['deviceList']:
+            _device_list.append(self.random_toprie_device_data(
+                device, gateway['timeSeed']))
+
+        return json.dumps({
+            "devices": _device_list,
+            "seq_no": rd.randrange(0, 10, 1),
+            "cbid": gateway['id'],
+            "time": int(time.time()),
+            "cmd": rd.randrange(0, 1000, 1),
+        }, sort_keys=True, indent=4)
+        
+        
     def random_cthm_gateway_device_data(self, gateway):
         """
         : 生成恒湿机网关数据
